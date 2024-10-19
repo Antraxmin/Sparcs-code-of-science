@@ -12,6 +12,10 @@ public class ClueTrigger : MonoBehaviour
     public Image bellIcon;  // 플레이어 머리 위 이미지 
     private ClueManager clueManager;
 
+    public GameObject icon;  
+    public Transform player;  
+    public Vector3 iconOffset = new Vector3(0, 1, 0); 
+
     private bool dialogueStarted = false;  // 대화 시작 여부
     private int currentDialogueIndex = 0;  // 현재 대화 인덱스
     private Coroutine typingCoroutine;  // 타이핑 효과 코루틴
@@ -20,6 +24,7 @@ public class ClueTrigger : MonoBehaviour
     {
         clueManager = FindObjectOfType<ClueManager>();
         dialoguePanel.SetActive(false);  // 대화 패널 비활성화
+        icon.SetActive(false);  //  아이콘 숨김
         getButton.gameObject.SetActive(false);  // 얻기 버튼 비활성화
         bellIcon.gameObject.SetActive(false);  // 이미지 비활성화
     }
@@ -31,8 +36,12 @@ public class ClueTrigger : MonoBehaviour
         {
             // 단서에 해당하는 이미지를 설정
             bellIcon.sprite = clueData.clueIcon;
-            bellIcon.gameObject.SetActive(true);  // 종 모양 이미지 활성화
+            // bellIcon.gameObject.SetActive(true);  
             getButton.gameObject.SetActive(true);  // 얻기 버튼 활성화
+
+            // 아이콘을 플레이어 머리 위에 배치
+            icon.SetActive(true); 
+            icon.transform.position = player.position + iconOffset;
         }
     }
 
@@ -46,6 +55,7 @@ public class ClueTrigger : MonoBehaviour
             dialoguePanel.SetActive(false);  // 대화 패널 비활성화
             dialogueStarted = false;  // 대화 상태 초기화
             currentDialogueIndex = 0;  // 대화 인덱스 초기화
+            icon.SetActive(false); 
         }
     }
 
