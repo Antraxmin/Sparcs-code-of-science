@@ -9,6 +9,7 @@ public class ClueManager : MonoBehaviour
     public TextMeshProUGUI quizQuestionText;        // 퀴즈 질문
     public Button[] choiceButtons = new Button[4];          // 4개의 선택지 버튼
     public TextMeshProUGUI explanationText;         // 해설 텍스트 
+    public Image[] heartImages;                 // 하트 이미지 배열
 
     private int correctAnswerIndex;    // 정답 인덱스
 
@@ -16,6 +17,7 @@ public class ClueManager : MonoBehaviour
     {
         clueModalPanel.SetActive(false);        // 처음에는 패널을 비활성화
         explanationText.gameObject.SetActive(false);        // 해설 텍스트 비활성화
+        UpdateHearts();                         // 처음 시작 시 하트 업데이트
     }
 
     // 단서 모달 패널을 띄우는 함수
@@ -43,12 +45,14 @@ public class ClueManager : MonoBehaviour
         if (selectedIndex == correctAnswerIndex)
         {
             Debug.Log("정답입니다!");
-            explanationText.text = explanation; // 해설 표시 
-            explanationText.gameObject.SetActive(true); // 해설 텍스트 활성화
+            // explanationText.text = explanation; // 해설 표시 
+            // explanationText.gameObject.SetActive(true); // 해설 텍스트 활성화
         }
         else
         {
             Debug.Log("틀렸습니다. 다시 시도하세요.");
+            GameManager.instance.ReduceLife(0.5f);  // 수명 감소
+            UpdateHearts();  // 수명 감소 후 하트 UI 업데이트
         }
     }
 
@@ -56,5 +60,26 @@ public class ClueManager : MonoBehaviour
     public void HideClueModal()
     {
         clueModalPanel.SetActive(false);  // 모달 비활성화
+    }
+
+    // 하트 UI 업데이트
+    public void UpdateHearts()
+    {
+        float life = GameManager.instance.life;  // GameManager에서 수명 정보 가져옴
+        for (int i = 0; i < heartImages.Length; i++)
+        {
+            if (life >= i + 1)
+            {
+                heartImages[i].fillAmount = 1;  // 하트 꽉 채움
+            }
+            else if (life > i && life < i + 1)
+            {
+                heartImages[i].fillAmount = 0.5f;  // 반 하트 표시
+            }
+            else
+            {
+                heartImages[i].fillAmount = 0;  // 빈 하트 표시
+            }
+        }
     }
 }
