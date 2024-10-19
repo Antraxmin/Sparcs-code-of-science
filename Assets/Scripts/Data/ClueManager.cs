@@ -1,22 +1,23 @@
 using UnityEngine;
-using TMPro;             
-using UnityEngine.UI;     
+using TMPro;
+using UnityEngine.UI;
 
 public class ClueManager : MonoBehaviour
 {
     public GameObject clueModalPanel;           // 모달 패널
     public TextMeshProUGUI clueDescriptionText;     // 단서 설명
     public TextMeshProUGUI quizQuestionText;        // 퀴즈 질문
-    public Button[] choiceButtons = new Button[4];          // 4개의 선택지 버튼
+    public Button[] choiceButtons = new Button[4];  // 4개의 선택지 버튼
     public TextMeshProUGUI explanationText;         // 해설 텍스트 
-    public Image[] heartImages;                 // 하트 이미지 배열
+    public Image[] heartImages;                     // 하트 이미지 배열
+    public Sprite correctAnswerSprite;              // 정답일 때 초록색 이미지로 바꿀 스프라이트
 
     private int correctAnswerIndex;    // 정답 인덱스
 
     void Start()
     {
         clueModalPanel.SetActive(false);        // 처음에는 패널을 비활성화
-        explanationText.gameObject.SetActive(false);        // 해설 텍스트 비활성화
+        explanationText.gameObject.SetActive(false); // 해설 텍스트 비활성화
         UpdateHearts();                         // 처음 시작 시 하트 업데이트
     }
 
@@ -45,8 +46,12 @@ public class ClueManager : MonoBehaviour
         if (selectedIndex == correctAnswerIndex)
         {
             Debug.Log("정답입니다!");
-            // explanationText.text = explanation; // 해설 표시 
-            // explanationText.gameObject.SetActive(true); // 해설 텍스트 활성화
+            // 선택한 버튼의 이미지를 초록색으로 변경
+            choiceButtons[selectedIndex].GetComponent<Image>().sprite = correctAnswerSprite;
+
+            // 추가로 해설 표시 등을 하고 싶다면 여기에 추가
+            // explanationText.text = explanation; 
+            // explanationText.gameObject.SetActive(true); 
         }
         else
         {
