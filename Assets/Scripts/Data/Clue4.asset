@@ -10,8 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dcc23bf974df24e6fa2276adf78712e0, type: 3}
-  m_Name: NewClueData
+  m_Name: Clue4
   m_EditorClassIdentifier: 
+  clueName: 
+  clueNumber: 0
   clueDescription: 
   quizQuestion: 
   choices:
@@ -20,3 +22,4 @@ MonoBehaviour:
   - 
   - 
   correctAnswerIndex: 0
+  explanation: 
