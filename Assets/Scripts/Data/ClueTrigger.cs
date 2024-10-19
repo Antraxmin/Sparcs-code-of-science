@@ -15,6 +15,8 @@ public class ClueTrigger : MonoBehaviour
     public GameObject icon;  
     public Transform player;  
     public Vector3 iconOffset = new Vector3(0, 1, 0); 
+    public float blinkInterval = 0.02f;  // 아이콘 깜빡이는 시간 간격
+    private Coroutine blinkCoroutine;  // 깜빡임 효과를 위한 코루틴
 
     private bool dialogueStarted = false;  // 대화 시작 여부
     private int currentDialogueIndex = 0;  // 현재 대화 인덱스
@@ -42,6 +44,10 @@ public class ClueTrigger : MonoBehaviour
             // 아이콘을 플레이어 머리 위에 배치
             icon.SetActive(true); 
             icon.transform.position = player.position + iconOffset;
+            if (blinkCoroutine == null)  // 코루틴 실행
+            {
+                blinkCoroutine = StartCoroutine(BlinkIcon());
+            }
         }
     }
 
@@ -50,6 +56,11 @@ public class ClueTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            if (blinkCoroutine != null)  // 코루틴 중지
+            {
+                StopCoroutine(blinkCoroutine);
+                blinkCoroutine = null;
+            }
             bellIcon.gameObject.SetActive(false);  // 이미지 비활성화
             getButton.gameObject.SetActive(false);  // 얻기 버튼 비활성화
             dialoguePanel.SetActive(false);  // 대화 패널 비활성화
@@ -109,6 +120,16 @@ public class ClueTrigger : MonoBehaviour
         {
             dialogueText.text += letter;                // 한 글자씩 추가
             yield return new WaitForSeconds(0.05f);  // 각 글자 사이의 지연 시간 
+        }
+    }
+
+    // 아이콘을 깜빡임을 위한 코루틴
+    IEnumerator BlinkIcon()
+    {
+        while (true)
+        {
+            icon.SetActive(!icon.activeSelf);        // 아이콘의 활성화 상태 반전 
+            yield return new WaitForSeconds(blinkInterval);  
         }
     }
 }
