@@ -1,40 +1,4 @@
-// using UnityEngine;
-
-// public class ClueTrigger : MonoBehaviour
-// {
-//     public ClueDataSO clueData;  // Scriptable Object로 단서 데이터 관리
-//     private ClueManager clueManager;
-
-//     void Start()
-//     {
-//         clueManager = FindObjectOfType<ClueManager>();
-//     }
-
-//     // 플레이어가 단서 위치에 도달했을 때 모달을 표시
-//     void OnTriggerEnter2D(Collider2D other)
-//     {
-//         if (other.CompareTag("Player"))
-//         {
-//             clueManager.ShowClueModal(
-//                 clueData.clueDescription, 
-//                 clueData.quizQuestion, 
-//                 clueData.choices, 
-//                 clueData.correctAnswerIndex, 
-//                 clueData.explanation
-//             );
-//         }
-//     }
-
-//     // 플레이어가 단서 위치에서 벗어나면 모달을 닫음
-//     void OnTriggerExit2D(Collider2D other)
-//     {
-//         if (other.CompareTag("Player"))
-//         {
-//             clueManager.HideClueModal();  // 모달 닫기
-//         }
-//     }
-// }
-
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -42,31 +6,29 @@ using TMPro;
 public class ClueTrigger : MonoBehaviour
 {
     public ClueDataSO clueData;  // Scriptable Object로 단서 데이터 관리
-    public GameObject dialoguePanel;        // 대화 패널
-    public GameObject getButton;            // 얻기 버튼
+    public GameObject dialoguePanel;  // 대화 패널
     public TextMeshProUGUI dialogueText;  // 대화 텍스트
+    public Button getButton;  // 얻기 버튼
     private ClueManager clueManager;
-    private bool isPlayerInRange = false;  // 플레이어가 범위 내에 있는지 체크
 
     private int currentDialogueIndex = 0;  // 현재 대화 인덱스
+    private Coroutine typingCoroutine;  // 타이핑 효과 코루틴
 
     void Start()
     {
-        // ClueManager를 찾아서 참조
         clueManager = FindObjectOfType<ClueManager>();
-        dialoguePanel.SetActive(false);          // 대화 패널 비활성화
-        getButton.SetActive(false);             // 얻기 버튼 비활성화
+        dialoguePanel.SetActive(false);  // 대화 패널 비활성화
+        getButton.gameObject.SetActive(false);  // 얻기 버튼 비활성화
     }
 
     // 플레이어가 범위에 들어왔을 때
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))  // 플레이어 태그로 감지
+        if (other.CompareTag("Player"))
         {
-            isPlayerInRange = true;
             dialoguePanel.SetActive(true);  // 대화 패널 활성화
-            getButton.SetActive(true);  // 얻기 버튼 활성화
-            UpdateDialogue();  // 대화 초기화
+            getButton.gameObject.SetActive(true);  // 얻기 버튼 활성화
+            StartDialogue();  // 대화 초기화
         }
     }
 
@@ -75,9 +37,8 @@ public class ClueTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            isPlayerInRange = false;
             dialoguePanel.SetActive(false);  // 대화 패널 비활성화
-            getButton.SetActive(false);  // 얻기 버튼 비활성화
+            getButton.gameObject.SetActive(false);  // 얻기 버튼 비활성화
             currentDialogueIndex = 0;  // 대화 인덱스 초기화
         }
     }
@@ -87,13 +48,11 @@ public class ClueTrigger : MonoBehaviour
     {
         if (currentDialogueIndex < clueData.dialogues.Length - 1)
         {
-            // 대화가 끝나지 않았으면 다음 대화로 진행
             currentDialogueIndex++;
-            UpdateDialogue();
+            StartDialogue();  // 다음 대화 시작
         }
         else
         {
-            // 마지막 대화가 끝났을 때 단서 모달 패널 표시
             dialoguePanel.SetActive(false);
             getButton.gameObject.SetActive(false);
             clueManager.ShowClueModal(
@@ -106,9 +65,25 @@ public class ClueTrigger : MonoBehaviour
         }
     }
 
-    // 대화 업데이트 
-    private void UpdateDialogue()
+    // 대화 텍스트를 타이핑 효과로 출력
+    private void StartDialogue()
     {
-        dialogueText.text = clueData.dialogues[currentDialogueIndex];  
+        if (typingCoroutine != null)
+        {
+            StopCoroutine(typingCoroutine);  // 코루틴이 실행 중이면 중단
+        }
+        typingCoroutine = StartCoroutine(TypeDialogue(clueData.dialogues[currentDialogueIndex]));
+    }
+
+    // 한 글자씩 대화 출력하는 코루틴 함수
+    private IEnumerator TypeDialogue(string dialogue)
+    {
+        dialogueText.text = "";  // 기존 텍스트 초기화
+        foreach (char letter in dialogue.ToCharArray())
+        {
+            dialogueText.text += letter;  // 한 글자씩 추가
+            yield return new WaitForSeconds(0.05f);  // 각 글자 사이의 지연 시간 
+        }
     }
 }
+
