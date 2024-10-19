@@ -254,7 +254,7 @@ GameObject:
   - component: {fileID: 15262704}
   - component: {fileID: 15262703}
   m_Layer: 5
-  m_Name: Panel (4)
+  m_Name: slot5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -585,7 +585,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.7264151, g: 0.65662307, b: 0.33922213, a: 0.78039217}
+  m_Color: {r: 0.7264151, g: 0.65662307, b: 0.33922213, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -865,6 +865,81 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 171131402}
   m_CullTransparentMesh: 1
+--- !u!1 &217400230
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 217400231}
+  - component: {fileID: 217400233}
+  - component: {fileID: 217400232}
+  m_Layer: 5
+  m_Name: BellIcon
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &217400231
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 217400230}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1377974097}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -618, y: 286}
+  m_SizeDelta: {x: 55.3848, y: 50.6093}
+  m_Pivot: {x: 0.5, y: 1}
+--- !u!114 &217400232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 217400230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 5788bd790a3ec4333a6e0a19701b39a2, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &217400233
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 217400230}
+  m_CullTransparentMesh: 1
 --- !u!1 &339555940
 GameObject:
   m_ObjectHideFlags: 0
@@ -966,6 +1041,7 @@ MonoBehaviour:
   dialoguePanel: {fileID: 0}
   dialogueText: {fileID: 0}
   getButton: {fileID: 0}
+  bellIcon: {fileID: 0}
 --- !u!1 &459565415
 GameObject:
   m_ObjectHideFlags: 0
@@ -1335,6 +1411,7 @@ MonoBehaviour:
   dialoguePanel: {fileID: 0}
   dialogueText: {fileID: 0}
   getButton: {fileID: 0}
+  bellIcon: {fileID: 0}
 --- !u!1 &572181195
 GameObject:
   m_ObjectHideFlags: 0
@@ -2264,7 +2341,7 @@ GameObject:
   - component: {fileID: 950758156}
   - component: {fileID: 950758155}
   m_Layer: 5
-  m_Name: Panel (1)
+  m_Name: slot2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2863,6 +2940,7 @@ MonoBehaviour:
   dialoguePanel: {fileID: 0}
   dialogueText: {fileID: 0}
   getButton: {fileID: 0}
+  bellIcon: {fileID: 0}
 --- !u!1 &1122715997
 GameObject:
   m_ObjectHideFlags: 0
@@ -3560,18 +3638,19 @@ RectTransform:
   - {fileID: 1186057806}
   - {fileID: 22585569}
   - {fileID: 776513579}
-  - {fileID: 138817393}
   - {fileID: 1027982926}
   - {fileID: 1491397152}
   - {fileID: 2118957814}
   - {fileID: 1380259896}
-  - {fileID: 742879323}
-  - {fileID: 1925193190}
+  - {fileID: 138817393}
   - {fileID: 1858485444}
   - {fileID: 950758154}
   - {fileID: 1693053506}
   - {fileID: 1501341249}
   - {fileID: 15262702}
+  - {fileID: 742879323}
+  - {fileID: 1925193190}
+  - {fileID: 217400231}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -4163,7 +4242,7 @@ GameObject:
   - component: {fileID: 1501341251}
   - component: {fileID: 1501341250}
   m_Layer: 5
-  m_Name: Panel (3)
+  m_Name: slot4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4394,8 +4473,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -539, y: 25}
-  m_SizeDelta: {x: 1222.8743, y: 50}
+  m_AnchoredPosition: {x: -262.74414, y: 25}
+  m_SizeDelta: {x: 1775.386, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1541596696
 MonoBehaviour:
@@ -4596,6 +4675,7 @@ MonoBehaviour:
   dialoguePanel: {fileID: 0}
   dialogueText: {fileID: 0}
   getButton: {fileID: 0}
+  bellIcon: {fileID: 0}
 --- !u!1 &1693053505
 GameObject:
   m_ObjectHideFlags: 0
@@ -4608,7 +4688,7 @@ GameObject:
   - component: {fileID: 1693053508}
   - component: {fileID: 1693053507}
   m_Layer: 5
-  m_Name: Panel (2)
+  m_Name: slot3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5148,7 +5228,7 @@ GameObject:
   - component: {fileID: 1858485446}
   - component: {fileID: 1858485445}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: slot1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5993,7 +6073,8 @@ MonoBehaviour:
   clueData: {fileID: 11400000, guid: 332915601bd59494d8313256170134b2, type: 2}
   dialoguePanel: {fileID: 742879322}
   dialogueText: {fileID: 1541596696}
-  getButton: {fileID: 1925193189}
+  getButton: {fileID: 1925193191}
+  bellIcon: {fileID: 217400232}
 --- !u!58 &1935011728
 CircleCollider2D:
   m_ObjectHideFlags: 0

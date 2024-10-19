@@ -1,4 +1,4 @@
-using System.Collections;
+using System.Collections; 
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -9,8 +9,10 @@ public class ClueTrigger : MonoBehaviour
     public GameObject dialoguePanel;  // 대화 패널
     public TextMeshProUGUI dialogueText;  // 대화 텍스트
     public Button getButton;  // 얻기 버튼
+    public Image bellIcon;  // 플레이어 머리 위 이미지 
     private ClueManager clueManager;
 
+    private bool dialogueStarted = false;  // 대화 시작 여부
     private int currentDialogueIndex = 0;  // 현재 대화 인덱스
     private Coroutine typingCoroutine;  // 타이핑 효과 코루틴
 
@@ -19,6 +21,7 @@ public class ClueTrigger : MonoBehaviour
         clueManager = FindObjectOfType<ClueManager>();
         dialoguePanel.SetActive(false);  // 대화 패널 비활성화
         getButton.gameObject.SetActive(false);  // 얻기 버튼 비활성화
+        bellIcon.gameObject.SetActive(false);  // 이미지 비활성화
     }
 
     // 플레이어가 범위에 들어왔을 때
@@ -26,9 +29,10 @@ public class ClueTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            dialoguePanel.SetActive(true);  // 대화 패널 활성화
+            // 단서에 해당하는 이미지를 설정
+            bellIcon.sprite = clueData.clueIcon;
+            bellIcon.gameObject.SetActive(true);  // 종 모양 이미지 활성화
             getButton.gameObject.SetActive(true);  // 얻기 버튼 활성화
-            StartDialogue();  // 대화 초기화
         }
     }
 
@@ -37,8 +41,10 @@ public class ClueTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            dialoguePanel.SetActive(false);  // 대화 패널 비활성화
+            bellIcon.gameObject.SetActive(false);  // 이미지 비활성화
             getButton.gameObject.SetActive(false);  // 얻기 버튼 비활성화
+            dialoguePanel.SetActive(false);  // 대화 패널 비활성화
+            dialogueStarted = false;  // 대화 상태 초기화
             currentDialogueIndex = 0;  // 대화 인덱스 초기화
         }
     }
@@ -46,22 +52,32 @@ public class ClueTrigger : MonoBehaviour
     // 얻기 버튼을 눌렀을 때 호출되는 함수
     public void OnGetButtonClicked()
     {
-        if (currentDialogueIndex < clueData.dialogues.Length - 1)
+        if (!dialogueStarted)
         {
-            currentDialogueIndex++;
-            StartDialogue();  // 다음 대화 시작
+            dialogueStarted = true;
+            dialoguePanel.SetActive(true);
+            StartDialogue();  // 첫 대화 출력
         }
         else
         {
-            dialoguePanel.SetActive(false);
-            getButton.gameObject.SetActive(false);
-            clueManager.ShowClueModal(
-                clueData.clueDescription,
-                clueData.quizQuestion,
-                clueData.choices,
-                clueData.correctAnswerIndex,
-                clueData.explanation
-            );
+            if (currentDialogueIndex < clueData.dialogues.Length - 1)
+            {
+                currentDialogueIndex++;
+                StartDialogue();  // 다음 대화 출력
+            }
+            else
+            {
+                dialoguePanel.SetActive(false);
+                getButton.gameObject.SetActive(false);
+                bellIcon.gameObject.SetActive(false); // 이미지 비활성화
+                clueManager.ShowClueModal(
+                    clueData.clueDescription,
+                    clueData.quizQuestion,
+                    clueData.choices,
+                    clueData.correctAnswerIndex,
+                    clueData.explanation
+                );
+            }
         }
     }
 
@@ -70,7 +86,7 @@ public class ClueTrigger : MonoBehaviour
     {
         if (typingCoroutine != null)
         {
-            StopCoroutine(typingCoroutine);  // 코루틴이 실행 중이면 중단
+            StopCoroutine(typingCoroutine);  // 기존 타이핑 효과 중단
         }
         typingCoroutine = StartCoroutine(TypeDialogue(clueData.dialogues[currentDialogueIndex]));
     }
@@ -81,9 +97,8 @@ public class ClueTrigger : MonoBehaviour
         dialogueText.text = "";  // 기존 텍스트 초기화
         foreach (char letter in dialogue.ToCharArray())
         {
-            dialogueText.text += letter;  // 한 글자씩 추가
+            dialogueText.text += letter;                // 한 글자씩 추가
             yield return new WaitForSeconds(0.05f);  // 각 글자 사이의 지연 시간 
         }
     }
 }
-
