@@ -12,7 +12,13 @@ public class ClueTrigger : MonoBehaviour
 
     void OnMouseDown()
     {
-        // 사용자가 터치한 단서의 설명과 퀴즈 정보를 전달
-        clueManager.ShowClueModal(clueData.clueDescription, clueData.quizQuestion, clueData.choices, clueData.correctAnswerIndex);
+        // 터치한 단서의 설명, 퀴즈 정보, 해설 전달
+        clueManager.ShowClueModal(
+            clueData.clueDescription, 
+            clueData.quizQuestion, 
+            clueData.choices, 
+            clueData.correctAnswerIndex, 
+            clueData.explanation
+        );
     }
 }
