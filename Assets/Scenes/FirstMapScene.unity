@@ -963,6 +963,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clueData: {fileID: 11400000, guid: 004f5db94437c40beaf09fa14c2b80ac, type: 2}
+  dialoguePanel: {fileID: 0}
+  getButton: {fileID: 0}
 --- !u!1 &459565415
 GameObject:
   m_ObjectHideFlags: 0
@@ -1329,6 +1331,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clueData: {fileID: 11400000, guid: 1ad0192c8fa3d47908c5f9d630c0ca06, type: 2}
+  dialoguePanel: {fileID: 0}
+  getButton: {fileID: 0}
 --- !u!1 &572181195
 GameObject:
   m_ObjectHideFlags: 0
@@ -1944,7 +1948,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &742879323
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2854,6 +2858,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clueData: {fileID: 11400000, guid: 6af4cf28c2a484f379558b3c84078233, type: 2}
+  dialoguePanel: {fileID: 0}
+  getButton: {fileID: 0}
 --- !u!1 &1122715997
 GameObject:
   m_ObjectHideFlags: 0
@@ -4533,6 +4539,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clueData: {fileID: 11400000, guid: 8734f6c967c3245b3bfe3558f36e4d7c, type: 2}
+  dialoguePanel: {fileID: 0}
+  getButton: {fileID: 0}
 --- !u!1 &1693053505
 GameObject:
   m_ObjectHideFlags: 0
@@ -5778,7 +5786,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1925193192}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1935011727}
+        m_TargetAssemblyTypeName: ClueTrigger, Assembly-CSharp
+        m_MethodName: OnGetButtonClicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1925193192
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5916,6 +5936,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clueData: {fileID: 11400000, guid: 332915601bd59494d8313256170134b2, type: 2}
+  dialoguePanel: {fileID: 742879322}
+  getButton: {fileID: 1925193189}
 --- !u!58 &1935011728
 CircleCollider2D:
   m_ObjectHideFlags: 0
