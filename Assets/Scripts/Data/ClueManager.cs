@@ -11,6 +11,7 @@ public class ClueManager : MonoBehaviour
     public TextMeshProUGUI explanationText;         // 해설 텍스트 
     public Image[] heartImages;                     // 하트 이미지 배열
     public Sprite correctAnswerSprite;              // 정답일 때 초록색 이미지로 바꿀 스프라이트
+    public Sprite wrongAnswerSprite;                // 오답일 때 붉은색 이미지
 
     private int correctAnswerIndex;    // 정답 인덱스
 
@@ -56,6 +57,7 @@ public class ClueManager : MonoBehaviour
         else
         {
             Debug.Log("틀렸습니다. 다시 시도하세요.");
+            choiceButtons[selectedIndex].GetComponent<Image>().sprite = wrongAnswerSprite;
             GameManager.instance.ReduceLife(0.5f);  // 수명 감소
             UpdateHearts();  // 수명 감소 후 하트 UI 업데이트
         }
