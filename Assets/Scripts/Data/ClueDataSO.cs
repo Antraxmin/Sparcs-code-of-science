@@ -11,4 +11,5 @@ public class ClueDataSO : ScriptableObject
     public int correctAnswerIndex;  // 정답 인덱스 (0~3)
     public string explanation;      // 해설
     public string[] dialogues = new string[5];  // 5개의 대화 내용
+    public Sprite clueIcon;         
 }
