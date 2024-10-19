@@ -4,18 +4,18 @@ using UnityEngine.UI;
 
 public class ClueManager : MonoBehaviour
 {
-    public GameObject clueModalPanel;  // 모달 패널
-    public TextMeshProUGUI clueDescriptionText;   // 단서 설명
-    public TextMeshProUGUI quizQuestionText;      // 퀴즈 질문
-    public Button[] choiceButtons = new Button[4];  // 4개의 선택지 버튼
-    public TextMeshProUGUI explanationText;       // 해설 텍스트 
+    public GameObject clueModalPanel;           // 모달 패널
+    public TextMeshProUGUI clueDescriptionText;     // 단서 설명
+    public TextMeshProUGUI quizQuestionText;        // 퀴즈 질문
+    public Button[] choiceButtons = new Button[4];          // 4개의 선택지 버튼
+    public TextMeshProUGUI explanationText;         // 해설 텍스트 
 
     private int correctAnswerIndex;    // 정답 인덱스
 
     void Start()
     {
-        clueModalPanel.SetActive(false); // 처음에는 패널을 비활성화
-        explanationText.gameObject.SetActive(false); // 해설 텍스트 비활성화
+        clueModalPanel.SetActive(false);        // 처음에는 패널을 비활성화
+        explanationText.gameObject.SetActive(false);        // 해설 텍스트 비활성화
     }
 
     // 단서 모달 패널을 띄우는 함수
@@ -50,5 +50,11 @@ public class ClueManager : MonoBehaviour
         {
             Debug.Log("틀렸습니다. 다시 시도하세요.");
         }
+    }
+
+    // 단서 모달 패널을 숨기는 함수
+    public void HideClueModal()
+    {
+        clueModalPanel.SetActive(false);  // 모달 비활성화
     }
 }
