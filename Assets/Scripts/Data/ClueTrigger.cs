@@ -36,14 +36,19 @@
 // }
 
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class ClueTrigger : MonoBehaviour
 {
     public ClueDataSO clueData;  // Scriptable Object로 단서 데이터 관리
     public GameObject dialoguePanel;        // 대화 패널
     public GameObject getButton;            // 얻기 버튼
+    public TextMeshProUGUI dialogueText;  // 대화 텍스트
     private ClueManager clueManager;
     private bool isPlayerInRange = false;  // 플레이어가 범위 내에 있는지 체크
+
+    private int currentDialogueIndex = 0;  // 현재 대화 인덱스
 
     void Start()
     {
@@ -61,6 +66,7 @@ public class ClueTrigger : MonoBehaviour
             isPlayerInRange = true;
             dialoguePanel.SetActive(true);  // 대화 패널 활성화
             getButton.SetActive(true);  // 얻기 버튼 활성화
+            UpdateDialogue();  // 대화 초기화
         }
     }
 
@@ -72,17 +78,24 @@ public class ClueTrigger : MonoBehaviour
             isPlayerInRange = false;
             dialoguePanel.SetActive(false);  // 대화 패널 비활성화
             getButton.SetActive(false);  // 얻기 버튼 비활성화
+            currentDialogueIndex = 0;  // 대화 인덱스 초기화
         }
     }
 
     // 얻기 버튼을 눌렀을 때 호출되는 함수
     public void OnGetButtonClicked()
     {
-        if (isPlayerInRange)
+        if (currentDialogueIndex < clueData.dialogues.Length - 1)
         {
-            dialoguePanel.SetActive(false);  // 대화 패널 비활성화
-            getButton.SetActive(false);  // 얻기 버튼 비활성화
-            // ClueManager를 통해 단서 모달을 띄움
+            // 대화가 끝나지 않았으면 다음 대화로 진행
+            currentDialogueIndex++;
+            UpdateDialogue();
+        }
+        else
+        {
+            // 마지막 대화가 끝났을 때 단서 모달 패널 표시
+            dialoguePanel.SetActive(false);
+            getButton.gameObject.SetActive(false);
             clueManager.ShowClueModal(
                 clueData.clueDescription,
                 clueData.quizQuestion,
@@ -91,5 +104,11 @@ public class ClueTrigger : MonoBehaviour
                 clueData.explanation
             );
         }
+    }
+
+    // 대화 업데이트 
+    private void UpdateDialogue()
+    {
+        dialogueText.text = clueData.dialogues[currentDialogueIndex];  
     }
 }

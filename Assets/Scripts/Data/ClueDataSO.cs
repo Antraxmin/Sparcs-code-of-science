@@ -10,4 +10,5 @@ public class ClueDataSO : ScriptableObject
     public string[] choices = new string[4];  // 4개의 선택지
     public int correctAnswerIndex;  // 정답 인덱스 (0~3)
     public string explanation;      // 해설
+    public string[] dialogues = new string[5];  // 5개의 대화 내용
 }
